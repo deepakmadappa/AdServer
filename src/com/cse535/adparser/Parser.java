@@ -17,12 +17,13 @@ public class Parser {
 	
 	public static String getHTMLString(String fileName) {
 		try {
-			String sourceUrlString="C:/Classes/CSE 535 - IR/Project3/Dataset/webpages-dataset-2/webpages-dataset-2/"+fileName;
+			String sourceUrlString="C:/Classes/CSE 535 - IR/Project3/Dataset/webpages-dataset-1/webpages-dataset-1/"+fileName;
 			/*if (sourceUrlString.indexOf(':')==-1)*/ sourceUrlString="file:"+sourceUrlString;
 			Source source=new Source(new URL(sourceUrlString));
 			String renderedText=source.getRenderer().toString();
 			//System.out.println("\nSimple rendering of the HTML document:\n");
 			//System.out.println(renderedText);
+			renderedText = renderedText.replaceAll("<[^>]*>", "");
 			return renderedText;
 		}
 		catch (Exception ex) {
@@ -34,7 +35,7 @@ public class Parser {
 	public static void main(String[] args) 
 	{
 		try {
-			String filename = "C:/Classes/CSE 535 - IR/Project3/Dataset/webpages-dataset-2/webpages-dataset-2.txt";
+			String filename = "C:/Classes/CSE 535 - IR/Project3/Dataset/webpages-dataset-1/webpages-dataset-1.txt";
 			BufferedReader buffReader = new BufferedReader (new FileReader(filename));
 			String line = null;
 			while((line = buffReader.readLine())!= null){
@@ -45,13 +46,15 @@ public class Parser {
 				//xml = xml.replaceAll("html", html);
 				//xml = xml.replaceAll("desc", tokens[5]);
 				//xml = xml.replaceAll("fname", tokens[0]);
-				PrintWriter writer = new PrintWriter(tokens[0] + ".xml", "UTF-8");
-				writer.println( "<doc>");
+				PrintWriter writer = new PrintWriter("Dataset1/"+tokens[0] + ".xml", "UTF-8");
+				writer.println("<add>");
+				writer.println("<doc>");
 				writer.println("<field name=\"id\">"+ tokens[0]+"</field>");
 				writer.println("<field name=\"keyword\">"+ tokens[1]+"</field>");
 				writer.println("<field name=\"title\">"+ tokens[5]+"</field>");
 				writer.println("<field name=\"html\">"+ html +"</field>");
 				writer.println("</doc>");
+				writer.println("</add>");
 				writer.close();
 			}
 			buffReader.close();
