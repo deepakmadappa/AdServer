@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<head>
+<title>Search - #{searchBean.query}</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" />
+<h:outputScript library="javascript" name="search.js" />
+</head>
+
+<body>
+	<div style="vertical-align: top; height: 10%; text-align: center;">
+		<h1>Autobots</h1>
+		<h:form>
+			<h:inputText value="#{searchBean.query}" />
+			<h:commandButton value="Search" />
+		</h:form>
+	</div>
+
+	<div style="vertical-align: top;">
+		<c:forEach var="i" items="#{searchBean.result}">
+			<h4>#{i.documentName}</h4>
+			<p>#{i.snippet}</p>
+			<a href="#{i.link}">#{i.link}</a>
+			<br />
+			<br />
+		</c:forEach>
+	</div>
+</body>
+
+</html>
