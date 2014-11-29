@@ -6,7 +6,8 @@
 
 <head>
 <title>Search - #{searchBean.query}</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" />
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js" />
 <h:outputScript library="javascript" name="search.js" />
 </head>
 
@@ -19,15 +20,27 @@
 		</h:form>
 	</div>
 
-	<div style="vertical-align: top;">
-		<c:forEach var="i" items="#{searchBean.result}">
-			<h4>#{i.documentName}</h4>
-			<p>#{i.snippet}</p>
-			<a href="#{i.link}">#{i.link}</a>
-			<br />
-			<br />
-		</c:forEach>
+	<div>
+		<div id="right" style="float: right; width: 30%">
+			<div style="vertical-align: top;">
+				<c:forEach var="i" items="#{searchBean.ads}">
+					<h4>#{i.title}</h4>
+					<p>#{i.snippet}</p>
+					<br />
+				</c:forEach>
+			</div>
+		</div>
+		<div id="left" style="float: left; width: 60%">
+			<div style="vertical-align: top;">
+				<c:forEach var="i" items="#{searchBean.result}">
+					<h4>#{i.title}</h4>
+					<p>#{i.snippet}</p>
+					<br />
+				</c:forEach>
+			</div>
+		</div>
 	</div>
+
 </body>
 
 </html>

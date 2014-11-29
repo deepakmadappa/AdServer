@@ -22,12 +22,13 @@ public class SearchBean {
 		this.query = query;
 	}
 
-	public void search() {
-		System.out.println(query);
-	}
-
 	public List<SearchResult> getResult() {
-		SearchEngine engine = new SearchEngine("http://localhost:8983/solr");
+		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/newscore");
+		return engine.query(query);
+	}
+	
+	public List<SearchResult> getAds(){
+		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/adcore");
 		return engine.query(query);
 	}
 

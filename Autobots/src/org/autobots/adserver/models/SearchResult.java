@@ -2,24 +2,27 @@ package org.autobots.adserver.models;
 
 public class SearchResult {
 
-	private String documentName;
+	private int id;
+	private String title;
 	private String snippet;
 	private String link;
-	
-	public SearchResult(){}
-	
-	public SearchResult(String docName, String snippet, String link){
-		documentName = docName;
+
+	public SearchResult() {
+	}
+
+	public SearchResult(int id, String title, String snippet, String link) {
+		this.id = id;
+		this.title = title;
 		this.snippet = snippet;
 		this.link = link;
 	}
 
-	public String getDocumentName() {
-		return documentName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDocumentName(String documentName) {
-		this.documentName = documentName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getSnippet() {
@@ -36,6 +39,14 @@ public class SearchResult {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
