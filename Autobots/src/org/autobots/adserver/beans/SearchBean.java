@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.autobots.adserver.models.SearchResult;
+import org.autobots.adserver.models.SearchType;
 import org.autobots.adserver.searchengine.SearchEngine;
 
 @ManagedBean
@@ -24,12 +25,12 @@ public class SearchBean {
 
 	public List<SearchResult> getResult() {
 		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/newscore");
-		return engine.query(query);
+		return engine.query(query, SearchType.Search);
 	}
 	
 	public List<SearchResult> getAds(){
 		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/adcore");
-		return engine.query(query);
+		return engine.query(query, SearchType.Ad);
 	}
 
 }

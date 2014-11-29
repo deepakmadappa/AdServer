@@ -2,7 +2,7 @@ package org.autobots.adserver.models;
 
 public class SearchResult {
 
-	private int id;
+	private String id;
 	private String title;
 	private String snippet;
 	private String link;
@@ -10,7 +10,7 @@ public class SearchResult {
 	public SearchResult() {
 	}
 
-	public SearchResult(int id, String title, String snippet, String link) {
+	public SearchResult(String id, String title, String snippet, String link) {
 		this.id = id;
 		this.title = title;
 		this.snippet = snippet;
@@ -41,11 +41,11 @@ public class SearchResult {
 		this.link = link;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
