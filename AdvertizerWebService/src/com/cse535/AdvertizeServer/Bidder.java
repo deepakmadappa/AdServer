@@ -11,8 +11,8 @@ public class Bidder {
 	HashMap<String, Keyword> mKeyWordsMap = new HashMap<String, Keyword>();
 	private Bidder() {
 		try {
-			List<String> keywords1 = Files.readAllLines(Paths.get("./keywords-dataset-1.txt"));
-			List<String> keywords2 = Files.readAllLines(Paths.get("./keywords-dataset-2.txt"));
+			List<String> keywords1 = Files.readAllLines(Paths.get("./keywords-dataset-1.txt"), null);
+			List<String> keywords2 = Files.readAllLines(Paths.get("./keywords-dataset-2.txt"), null);
 			for (String string : keywords1) {
 				Keyword key = new Keyword();
 				key.mKeyword = string;

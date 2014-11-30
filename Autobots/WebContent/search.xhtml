@@ -20,7 +20,21 @@
 		</h:form>
 	</div>
 
-	<div>
+	<div id="filter" style="float: left; width: 15%">
+		<div>
+			<h3>
+				<u>Categories</u>
+			</h3>
+			<br />
+			<c:forEach var="i" items="#{searchBean.categories}">
+				<h:outputText value="#{i}" />
+				<br />
+			</c:forEach>
+			<h:outputText value="Show All" />
+		</div>
+	</div>
+
+	<div id="results" style="float: right; width: 84%">
 		<div id="right" style="float: right; width: 30%">
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.ads}">
@@ -30,11 +44,15 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div id="left" style="float: left; width: 60%">
+
+		<div id="left" style="float: left; width: 65%">
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.result}">
-					<h4><u>#{i.title}</u></h4>
+					<h4>
+						<u>#{i.title}</u>
+					</h4>
 					<h:outputText escape="false" value="#{i.snippet}" />
+					<h:inputHidden value="#{i.categoriesString}" />
 					<br />
 				</c:forEach>
 			</div>

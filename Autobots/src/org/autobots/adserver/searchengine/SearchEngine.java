@@ -1,13 +1,13 @@
 package org.autobots.adserver.searchengine;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
@@ -28,8 +28,10 @@ public class SearchEngine {
 		if (queryString == null || queryString.isEmpty())
 			return list;
 		SolrQuery query = new SolrQuery();
-		query.set("q", queryString);
-		//TODO fix highlighting
+		if(type == SearchType.Search)
+			query.set("q", queryString);
+		if(type == SearchType.Ad)
+			query.set("q", "title:" + queryString);
 		query.set("hl", "true");
 		query.set("hl.fl", "body");
 		query.set("hl.simple.pre", "<mark><b><i>");
@@ -39,23 +41,30 @@ public class SearchEngine {
 		try {
 			QueryResponse response = server.query(query);
 			SolrDocumentList results = response.getResults();
-			Map<String, Map<String, List<String>>> snippetMap = response
-					.getHighlighting();
+			Map<String, Map<String, List<String>>> snippetMap = response.getHighlighting();
 			Iterator<SolrDocument> iterator = results.iterator();
 			while (iterator.hasNext()) {
 				SolrDocument document = iterator.next();
 				String id = document.getFieldValue("id").toString();
 				String content = "";
+				String keyword = "";
+				List<String> categoryList = new ArrayList<String>();
 				String title = document.getFieldValue("title").toString();
 				if (type == SearchType.Search) {
-					List<String> highlightContent = snippetMap.get(id).get(
-							"body");
+					List<String> highlightContent = snippetMap.get(id).get("body");
 					if (highlightContent != null && !highlightContent.isEmpty())
 						content = highlightContent.get(0);
-				} else if (type == SearchType.Ad)
+					Collection<Object> categories = document.getFieldValues("category");
+					for (Object object : categories) 
+						categoryList.add(object.toString());
+				} else if (type == SearchType.Ad){
 					content = document.getFieldValue("html").toString();
+					keyword = document.getFieldValue("keyword").toString();
+				}
 				// TODO change link
-				list.add(new SearchResult(id, title, content, ""));
+				SearchResult res = new SearchResult(id, title, content, "", keyword);
+				res.addCategories(categoryList);
+				list.add(res);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

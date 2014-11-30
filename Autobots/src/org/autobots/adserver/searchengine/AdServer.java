@@ -2,25 +2,49 @@ package org.autobots.adserver.searchengine;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.autobots.adserver.models.Bid;
+import org.autobots.adserver.models.SearchResult;
+
+import com.cse535.AdvertizeServer.KeywordDetails;
+import com.cse535.AdvertizeServer.Server;
+import com.sun.faces.facelets.util.Classpath.SearchAdvice;
+
 public class AdServer {
 
-	public void connect() {
+	private Service service;
+
+	public AdServer() {
+		URL url;
 		try {
-			URL url = new URL("http://localhost:9999/ws/hello?wsdl");
+			url = new URL("http://localhost:9999/ws/hello?wsdl");
 			QName qname = new QName("http://AdvertizeServer.cse535.com/", "ServerImplService");
-			Service service = Service.create(url, qname);
-			
-			/*Server hello = service.getPort(Server.class);
-			KeywordDetails details = new KeywordDetails();
-			details.mKeyWord = "secure online back up";
-			System.out.println(hello.getBid(details));*/
+			service = Service.create(url, qname);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<SearchResult> getBid(List<SearchResult> keywords) {
+		//List<Bid> bids = new ArrayList<Bid>();
+		Server server = service.getPort(Server.class);
+		for (SearchResult word : keywords) {
+			KeywordDetails details = new KeywordDetails(word.getKeyword());
+			//Bid bid = new Bid(word.getId());
+			try {
+				word.setBid(server.getBid(details));
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+			//bids.add(bid);
+		}
+		return keywords;
 	}
 
 }
