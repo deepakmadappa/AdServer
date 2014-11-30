@@ -1,32 +1,35 @@
 $(function() {
 
-	var categoriesDisplayed = [];
-	var c = $('.filterOptions');
-	for (var i = 0; i < c.length; i++) {
-		if ($(c[i]).val() == "Show All")
-			continue;
-		categoriesDisplayed.push($(c[i]).val());
-	}
-
 	$('.filterOptions').click(function() {
-		if (this.value == "Show All") {
+		if (this.value == "Show All" && this.checked) {
 			$('.searchResult').show();
+			$('.filterOptions').attr('checked', false);
+			this.checked = true;
 			return;
 		}
-		var a = jQuery.inArray(categoriesDisplayed, this.value);
-		categoriesDisplayed = jQuery.grep(y, function(value) {
-			return value != this.value;
+		var categoryDivs = $('.filterOptions:checked');
+		if (categoryDivs[categoryDivs.length - 1].value == "Show All")
+			$(categoryDivs[categoryDivs.length - 1]).attr('checked', false);
+		categoryDivs = $('.filterOptions:checked');
+		var categories = [];
+		$(categoryDivs).each(function(){
+			categories.push($(this).val());
 		});
-		if (this.checked) {
-			
-		}
-		displayCategories(categoriesDisplayed);
+		displayCategories(categories);
 	});
+
 });
 
 function displayCategories(categories) {
-	var searchResults = $('.searchResult');
-	for(var i = 0; i < searchResults.length; i++){
-		if($(searchResults[i]).children('input').val())
-	}
+	$('.searchResult').hide();
+	$('.searchResult').each(function(index) {
+		var c = $(this).children('input').val().split(',');
+		for (var j = 0; j < c.length; j++) {
+			var a = jQuery.inArray(c[j], categories);
+			if (a != -1) {
+				$(this).show();
+				break;
+			}
+		}
+	});
 }

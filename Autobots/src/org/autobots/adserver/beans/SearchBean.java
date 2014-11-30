@@ -19,6 +19,8 @@ public class SearchBean {
 
 	private String query;
 	private List<String> categories;
+	private String selectedSearch;
+	private SearchResult selectedResult;
 
 	public List<SearchResult> getResult() {
 		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/newscore");
@@ -49,14 +51,6 @@ public class SearchBean {
 		return res;
 	}
 
-	public String getQuery() {
-		return query;
-	}
-
-	public void setQuery(String query) {
-		this.query = query;
-	}
-
 	public List<String> getCategories() {
 		if (categories == null || categories.isEmpty())
 			getResult();
@@ -65,6 +59,30 @@ public class SearchBean {
 
 	public void setCategories(List<String> categories) {
 		this.categories = categories;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public String getSelectedSearch() {
+		return selectedSearch;
+	}
+
+	public void setSelectedSearch(String selectedSearch) {
+		this.selectedSearch = selectedSearch;
+	}
+
+	public SearchResult getSelectedResult() {
+		return selectedResult;
+	}
+
+	public void setSelectedResult(SearchResult selectedResult) {
+		this.selectedResult = selectedResult;
 	}
 
 }
