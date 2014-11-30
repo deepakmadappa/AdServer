@@ -58,6 +58,8 @@ public class SearchBean {
 	}
 
 	public List<String> getCategories() {
+		if (categories == null || categories.isEmpty())
+			getResult();
 		return categories;
 	}
 

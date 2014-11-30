@@ -22,15 +22,13 @@
 
 	<div id="filter" style="float: left; width: 15%">
 		<div>
-			<h3>
-				<u>Categories</u>
-			</h3>
 			<br />
 			<c:forEach var="i" items="#{searchBean.categories}">
-				<h:outputText value="#{i}" />
+				<input value="#{i}" type="checkbox" class="filterOptions">#{i}</input>
 				<br />
 			</c:forEach>
-			<h:outputText value="Show All" />
+			<input value="Show All" type="checkbox" class="filterOptions">Show
+				All</input>
 		</div>
 	</div>
 
@@ -38,9 +36,9 @@
 		<div id="right" style="float: right; width: 30%">
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.ads}">
-					<h4>#{i.title}</h4>
-					<!-- <p>#{i.snippet}</p> -->
-					<br />
+					<div class="ad">
+						<h5>#{i.title}</h5>
+					</div>
 				</c:forEach>
 			</div>
 		</div>
@@ -48,12 +46,14 @@
 		<div id="left" style="float: left; width: 65%">
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.result}">
-					<h4>
-						<u>#{i.title}</u>
-					</h4>
-					<h:outputText escape="false" value="#{i.snippet}" />
-					<h:inputHidden value="#{i.categoriesString}" />
-					<br />
+					<div class="searchResult">
+						<h4>
+							<u>#{i.title}</u>
+						</h4>
+						<h:outputText escape="false" value="#{i.snippet}" />
+						<h:inputHidden value="#{i.categoriesString}" />
+						<br />
+					</div>
 				</c:forEach>
 			</div>
 		</div>
