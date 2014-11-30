@@ -10,6 +10,6 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style = Style.RPC)
 public interface Server{
  
-	@WebMethod int getBid(KeywordDetails info);
+	@WebMethod double getBid(KeywordDetails info);
  
 }

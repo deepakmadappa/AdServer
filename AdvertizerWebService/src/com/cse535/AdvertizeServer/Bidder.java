@@ -6,13 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import linearregression.Train;
+
 public class Bidder {
 	private static Bidder mInstance = null;
 	HashMap<String, Keyword> mKeyWordsMap = new HashMap<String, Keyword>();
+	Train mRegressionModel;
 	private Bidder() {
 		try {
-			List<String> keywords1 = Files.readAllLines(Paths.get("./keywords-dataset-1.txt"), null);
-			List<String> keywords2 = Files.readAllLines(Paths.get("./keywords-dataset-2.txt"), null);
+			mRegressionModel = new Train();
+			
+			List<String> keywords1 = Files.readAllLines(Paths.get("./keywords-dataset-1.txt"));
+			List<String> keywords2 = Files.readAllLines(Paths.get("./keywords-dataset-2.txt"));
 			for (String string : keywords1) {
 				Keyword key = new Keyword();
 				key.mKeyword = string;
@@ -43,11 +48,26 @@ public class Bidder {
 		return mInstance;
 	}
 	
-	public int GetBid(KeywordDetails kd) {
-		if(mKeyWordsMap.containsKey(kd.mKeyWord)) {
-			return mKeyWordsMap.get(kd.mKeyWord).mBid;
+	public double GetBid(KeywordDetails kd, int mode) {
+		switch (mode) {
+		case 0:
+			//returns random
+			Random rGen = new Random();
+			int rand = rGen.nextInt(10);
+			return rand + 5.0;
+		case 1:
+			//returns last bid plus 1 cent
+			return kd.mLastBidCost + 0.01;
+		case 2:
+			double lastCtr = kd.mLastBidClicks / kd.mLastBidImpressions * 100;
+			double lastRelevanceScore = ((kd.mLastBidRank / 20) + 1 ) * lastCtr;
+			double thisRelevanceScore = ((kd.mThisBidRank / 20) + 1 ) * lastCtr;
+			
+			return mRegressionModel.getData(lastRelevanceScore , kd.mLastBidCost, thisRelevanceScore);
+			//returns ML regressed value;
+		default:
+			//no bid
+			return 0;
 		}
-		return 0;
 	}
-	
 }
