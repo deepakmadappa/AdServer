@@ -3,18 +3,15 @@ package org.autobots.adserver.searchengine;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.autobots.adserver.models.Bid;
 import org.autobots.adserver.models.SearchResult;
 
 import com.cse535.AdvertizeServer.KeywordDetails;
 import com.cse535.AdvertizeServer.Server;
-import com.sun.faces.facelets.util.Classpath.SearchAdvice;
 
 public class AdServer {
 

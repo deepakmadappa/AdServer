@@ -4,17 +4,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<head>
-<title>Search - #{searchBean.query}</title>
-<h:outputStylesheet library="css" name="search.css" />
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" />
-<h:outputScript library="javascript" name="search.js" />
-</head>
+<h:head>
+	<title>Search - #{searchBean.query}</title>
+	<h:outputStylesheet library="default" name="css/search.css" />
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js" />
+	<h:outputScript library="default" name="javascript/search.js" />
+</h:head>
 
-<body>
+<h:body>
 	<div style="vertical-align: top; height: 10%; text-align: center;">
-		<h1>Autobots</h1>
-		<h:form>
+		<h:graphicImage library="default" name="images/logo.png" id="logo" />
+		<h:form id="searchForm">
 			<h:inputText value="#{searchBean.query}" />
 			<h:commandButton value="Search" />
 		</h:form>
@@ -27,9 +28,8 @@
 				<input value="#{i}" type="checkbox" class="filterOptions">#{i}</input>
 				<br />
 			</c:forEach>
-			<input value="Show All" type="checkbox" class="filterOptions" checked="checked">
-				Show All
-			</input>
+			<input value="Show All" type="checkbox" class="filterOptions"
+				checked="checked"> Show All </input>
 		</div>
 	</div>
 
@@ -38,7 +38,10 @@
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.ads}">
 					<div class="ad">
-						<h5>#{i.title}</h5>
+						<a href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/ads_flat/#{i.id}">
+							#{i.title} 
+						</a> 
+						<br />
 					</div>
 				</c:forEach>
 			</div>
@@ -48,9 +51,11 @@
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.result}">
 					<div class="searchResult">
-						<h4>
-							<u>#{i.title}</u>
-						</h4>
+						<a href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/news_flat/Flat/#{i.id}">
+							<h4>
+								<u>#{i.title}</u>
+							</h4>
+						</a>
 						<h:outputText escape="false" value="#{i.snippet}" />
 						<h:inputHidden value="#{i.categoriesString}" />
 						<br />
@@ -60,6 +65,6 @@
 		</div>
 	</div>
 
-</body>
+</h:body>
 
 </html>

@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background: black;
+}
+
+#centerDiv {
+	left: 39%;
+	position: fixed;
+	top: 24%;
+}
+
+#logo {
+	width: 38%;
+}
+
+#searchForm\:searchText {
+	font-size: 20px;
+	font-family: inherit;
+	width: 40%;
+}
+
+#searchForm\:searchButton {
+	height: 30px;
+	width: 100px;
+	color: blue;
+	position: relative;
+	left: 20px;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0px;
+	background-color: #A9AFC3;
+}

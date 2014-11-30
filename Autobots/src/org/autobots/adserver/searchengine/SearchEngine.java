@@ -43,7 +43,9 @@ public class SearchEngine {
 			SolrDocumentList results = response.getResults();
 			Map<String, Map<String, List<String>>> snippetMap = response.getHighlighting();
 			Iterator<SolrDocument> iterator = results.iterator();
+			int rank = 0;
 			while (iterator.hasNext()) {
+				rank++;
 				SolrDocument document = iterator.next();
 				String id = document.getFieldValue("id").toString();
 				String content = "";
@@ -61,9 +63,9 @@ public class SearchEngine {
 					content = document.getFieldValue("html").toString();
 					keyword = document.getFieldValue("keyword").toString();
 				}
-				// TODO change link
 				SearchResult res = new SearchResult(id, title, content, "", keyword);
 				res.addCategories(categoryList);
+				res.setRank(rank);
 				list.add(res);
 			}
 		} catch (Exception e) {

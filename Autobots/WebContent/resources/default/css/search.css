@@ -1,0 +1,36 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color: black;
+	/* background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #17171A),
+		color-stop(1, #736FFF));
+	background-image: -o-linear-gradient(bottom, #17171A 0%, #736FFF 100%);
+	background-image: -moz-linear-gradient(bottom, #17171A 0%, #736FFF 100%);
+	background-image: -webkit-linear-gradient(bottom, #17171A 0%, #736FFF 100%);
+	background-image: -ms-linear-gradient(bottom, #17171A 0%, #736FFF 100%);
+	background-image: linear-gradient(to bottom, #17171A 0%, #736FFF 100%); */
+}
+
+#logo {
+	width: 5%;
+}
+
+#filter {
+	color: #00CCFF;
+}
+
+.filterOptions {
+	
+}
+
+a {
+	color: #00CCFF;
+}
+
+.searchResult {
+	color: white;
+}
+
+.ad {
+	
+}

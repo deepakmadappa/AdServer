@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -12,11 +13,14 @@ import org.autobots.adserver.models.SearchResult;
 import org.autobots.adserver.models.SearchType;
 import org.autobots.adserver.searchengine.AdServer;
 import org.autobots.adserver.searchengine.SearchEngine;
+import org.autobots.adserver.utilities.Parser;
 
 @ManagedBean
 @SessionScoped
+//@ApplicationScoped
 public class SearchBean {
 
+	private Parser keywordMap;
 	private String query;
 	private List<String> categories;
 	private String selectedSearch;
@@ -57,16 +61,18 @@ public class SearchBean {
 		return categories;
 	}
 
-	public void setCategories(List<String> categories) {
-		this.categories = categories;
+	public void setQuery(String query) {
+		if (keywordMap.isEmpty())
+			keywordMap.parse();
+		this.query = query;
 	}
 
 	public String getQuery() {
 		return query;
 	}
 
-	public void setQuery(String query) {
-		this.query = query;
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
 	}
 
 	public String getSelectedSearch() {

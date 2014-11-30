@@ -4,18 +4,23 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:jl="http://xmlns.jcp.org/jsf/composite/jsflive">
 
-<head>
-<title>Autobots</title>
-</head>
+<h:head>
+	<title>Autobots</title>
+	<!-- <link type="text/css" rel="stylesheet"
+	href="/JavaServerFaces/faces/javax.faces.resource/css/index.css?ln=default" /> -->
+	<h:outputStylesheet library="default" name="css/index.css" />
+</h:head>
 
-<body>
-	<div style="position: fixed; top: 37%; left: 45%">
-		<h1>Autobots</h1>
-		<h:form>
-			<h:inputText value="#{searchBean.query}"></h:inputText>
-			<h:commandButton action="search" value="Search"></h:commandButton>
+<h:body>
+	<div id="centerDiv">
+		<!-- <h1>Autobots</h1> -->
+		<h:graphicImage library="default" name="images/logo.png" id="logo" />
+		<h:form id="searchForm">
+			<h:inputText value="#{searchBean.query}" id="searchText" />
+			<br />
+			<h:commandButton action="search" value="Search" id="searchButton" />
 		</h:form>
 	</div>
-</body>
+</h:body>
 
 </html>

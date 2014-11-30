@@ -6,9 +6,11 @@ import java.util.List;
 
 public class SearchResult implements Comparable<SearchResult> {
 
+	private int rank;
 	private String id;
 	private String title;
 	private String snippet;
+	private String content;
 	private String link;
 	private String keyword;
 	private int bid;
@@ -25,6 +27,16 @@ public class SearchResult implements Comparable<SearchResult> {
 		this.link = link;
 		this.keyword = keyword;
 		categories = new ArrayList<String>();
+	}
+
+	@Override
+	public int compareTo(SearchResult o) {
+		if (this.bid > o.getBid())
+			return 1;
+		else if (this.bid == o.getBid())
+			return 0;
+		else
+			return -1;
 	}
 
 	public String getCategoriesString() {
@@ -97,14 +109,20 @@ public class SearchResult implements Comparable<SearchResult> {
 		this.id = id;
 	}
 
-	@Override
-	public int compareTo(SearchResult o) {
-		if (this.bid > o.getBid())
-			return 1;
-		else if (this.bid == o.getBid())
-			return 0;
-		else
-			return -1;
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
 }
