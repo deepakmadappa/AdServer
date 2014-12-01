@@ -28,10 +28,15 @@ public class SearchEngine {
 		if (queryString == null || queryString.isEmpty())
 			return list;
 		SolrQuery query = new SolrQuery();
-		if(type == SearchType.Search)
+		if (type == SearchType.Search)
 			query.set("q", queryString);
-		if(type == SearchType.Ad)
-			query.set("q", "title:" + queryString);
+		if (type == SearchType.Ad) {
+			String qstr = "title:" + queryString + "^3" + "keyword:"
+					+ queryString + "^1 html:" + queryString
+					+ "^0.2 title:*^0.001";
+			query.set("q", qstr);
+			query.set("fl", "id,keyword,score,html,title");
+		}
 		query.set("hl", "true");
 		query.set("hl.fl", "body");
 		query.set("hl.simple.pre", "<mark><b><i>");
@@ -41,7 +46,8 @@ public class SearchEngine {
 		try {
 			QueryResponse response = server.query(query);
 			SolrDocumentList results = response.getResults();
-			Map<String, Map<String, List<String>>> snippetMap = response.getHighlighting();
+			Map<String, Map<String, List<String>>> snippetMap = response
+					.getHighlighting();
 			Iterator<SolrDocument> iterator = results.iterator();
 			int rank = 0;
 			while (iterator.hasNext()) {
@@ -50,22 +56,29 @@ public class SearchEngine {
 				String id = document.getFieldValue("id").toString();
 				String content = "";
 				String keyword = "";
+				double score = 0;
 				List<String> categoryList = new ArrayList<String>();
 				String title = document.getFieldValue("title").toString();
 				if (type == SearchType.Search) {
-					List<String> highlightContent = snippetMap.get(id).get("body");
+					List<String> highlightContent = snippetMap.get(id).get(
+							"body");
 					if (highlightContent != null && !highlightContent.isEmpty())
 						content = highlightContent.get(0);
-					Collection<Object> categories = document.getFieldValues("category");
-					for (Object object : categories) 
+					Collection<Object> categories = document
+							.getFieldValues("category");
+					for (Object object : categories)
 						categoryList.add(object.toString());
-				} else if (type == SearchType.Ad){
+				} else if (type == SearchType.Ad) {
 					content = document.getFieldValue("html").toString();
 					keyword = document.getFieldValue("keyword").toString();
+					score = Double.parseDouble(document.getFieldValue("score")
+							.toString());
 				}
-				SearchResult res = new SearchResult(id, title, content, "", keyword);
+				SearchResult res = new SearchResult(id, title, content, "",
+						keyword);
 				res.addCategories(categoryList);
 				res.setRank(rank);
+				res.setScore(score);
 				list.add(res);
 			}
 		} catch (Exception e) {

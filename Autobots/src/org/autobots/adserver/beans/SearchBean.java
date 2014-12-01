@@ -9,11 +9,14 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.autobots.adserver.models.KeywordParams;
 import org.autobots.adserver.models.SearchResult;
 import org.autobots.adserver.models.SearchType;
 import org.autobots.adserver.searchengine.AdServer;
 import org.autobots.adserver.searchengine.SearchEngine;
 import org.autobots.adserver.utilities.Parser;
+
+import com.cse535.AdvertizeServer.KeywordDetails;
 
 @ManagedBean
 @SessionScoped
@@ -42,12 +45,36 @@ public class SearchBean {
 				"http://localhost:8983/solr/adcore");
 		AdServer adServer = new AdServer();
 		List<SearchResult> results = engine.query(query, SearchType.Ad);
-		List<SearchResult> bidList = adServer.getBid(results);
+		List<SearchResult> bidList = adServer.getBid(results, keywordMap.mMap);
+		double max = 0;
+		for (SearchResult searchResult : bidList) {
+			if (searchResult.getScore() > max)
+				max = searchResult.getScore();
+		}
+		for (SearchResult searchResult : bidList) {
+			double s = searchResult.getScore() / max * searchResult.getBid();
+			searchResult.setCalculatedScore(s);
+		}
+		int count = 0;
 		Collections.sort(bidList);
+		List<SearchResult> finalList = new ArrayList<SearchResult>();
+		SearchResult winner = null;
+		for (SearchResult searchResult : bidList) {
+			count++;
+			if(count == 4)
+				break;
+			finalList.add(searchResult);
+			KeywordParams details = keywordMap.mMap.get(searchResult.getKeyword());
+			details.mLastImpressions++;
+			if(winner == null)
+				winner = searchResult;
+			details.mLastWinningBid = winner.getBid();
+			details.mLastWinningBidRank = winner.getRank();
+		}
 		savedAds = bidList;
 		// List<Bid> bids = adServer.getBid(results);
 		// TODO check display limit of ads
-		return bidList;
+		return finalList;
 	}
 
 	private List<String> extractCategories(Collection<SearchResult> searches) {
@@ -68,7 +95,7 @@ public class SearchBean {
 	}
 
 	public void setQuery(String query) {
-		if(keywordMap == null)
+		if (keywordMap == null)
 			keywordMap = new Parser();
 		if (keywordMap.mMap.isEmpty())
 			keywordMap.parse();

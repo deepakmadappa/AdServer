@@ -14,6 +14,8 @@ public class SearchResult implements Comparable<SearchResult> {
 	private String link;
 	private String keyword;
 	private double bid;
+	private double score;
+	private double calculatedScore;
 	private List<String> categories;
 
 	public SearchResult() {
@@ -31,10 +33,8 @@ public class SearchResult implements Comparable<SearchResult> {
 
 	@Override
 	public int compareTo(SearchResult o) {
-		if (this.bid > o.getBid())
+		if (this.calculatedScore < o.getCalculatedScore())
 			return 1;
-		else if (this.bid == o.getBid())
-			return 0;
 		else
 			return -1;
 	}
@@ -47,6 +47,12 @@ public class SearchResult implements Comparable<SearchResult> {
 		if (str.length() > 0)
 			str = str.substring(0, str.length() - 1);
 		return str;
+	}
+
+	@Override
+	public String toString() {
+		return "bid: " + bid + " score: " + score + " calculated score: "
+				+ calculatedScore;
 	}
 
 	public void addCategories(Collection<String> categories) {
@@ -66,6 +72,8 @@ public class SearchResult implements Comparable<SearchResult> {
 	}
 
 	public void setBid(double bid) {
+		if (Double.isNaN(bid))
+			bid = 0;
 		this.bid = bid;
 	}
 
@@ -123,6 +131,22 @@ public class SearchResult implements Comparable<SearchResult> {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public double getCalculatedScore() {
+		return calculatedScore;
+	}
+
+	public void setCalculatedScore(double calculatedScore) {
+		this.calculatedScore = calculatedScore;
 	}
 
 }
