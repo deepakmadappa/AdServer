@@ -21,7 +21,8 @@ public class AdServer {
 		URL url;
 		try {
 			url = new URL("http://localhost:9999/ws/hello?wsdl");
-			QName qname = new QName("http://AdvertizeServer.cse535.com/", "ServerImplService");
+			QName qname = new QName("http://AdvertizeServer.cse535.com/",
+					"ServerImplService");
 			service = Service.create(url, qname);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -29,17 +30,18 @@ public class AdServer {
 	}
 
 	public List<SearchResult> getBid(List<SearchResult> keywords) {
-		//List<Bid> bids = new ArrayList<Bid>();
+		// List<Bid> bids = new ArrayList<Bid>();
 		Server server = service.getPort(Server.class);
 		for (SearchResult word : keywords) {
-			KeywordDetails details = new KeywordDetails(word.getKeyword());
-			//Bid bid = new Bid(word.getId());
+			KeywordDetails details = new KeywordDetails(word.getKeyword(),
+					word.getRank(), 1.0, 1, 1, 1);
+			// Bid bid = new Bid(word.getId());
 			try {
 				word.setBid(server.getBid(details));
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-			//bids.add(bid);
+			// bids.add(bid);
 		}
 		return keywords;
 	}

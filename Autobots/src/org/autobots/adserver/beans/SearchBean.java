@@ -17,7 +17,7 @@ import org.autobots.adserver.utilities.Parser;
 
 @ManagedBean
 @SessionScoped
-//@ApplicationScoped
+// @ApplicationScoped
 public class SearchBean {
 
 	private Parser keywordMap;
@@ -25,20 +25,26 @@ public class SearchBean {
 	private List<String> categories;
 	private String selectedSearch;
 	private SearchResult selectedResult;
+	private String selectedAdName;
+	private SearchResult selectedAd;
+	private List<SearchResult> savedAds;
 
 	public List<SearchResult> getResult() {
-		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/newscore");
+		SearchEngine engine = new SearchEngine(
+				"http://localhost:8983/solr/newscore");
 		List<SearchResult> res = engine.query(query, SearchType.Search);
 		categories = extractCategories(res);
 		return res;
 	}
 
 	public List<SearchResult> getAds() {
-		SearchEngine engine = new SearchEngine("http://localhost:8983/solr/adcore");
+		SearchEngine engine = new SearchEngine(
+				"http://localhost:8983/solr/adcore");
 		AdServer adServer = new AdServer();
 		List<SearchResult> results = engine.query(query, SearchType.Ad);
 		List<SearchResult> bidList = adServer.getBid(results);
 		Collections.sort(bidList);
+		savedAds = bidList;
 		// List<Bid> bids = adServer.getBid(results);
 		// TODO check display limit of ads
 		return bidList;
@@ -62,9 +68,21 @@ public class SearchBean {
 	}
 
 	public void setQuery(String query) {
-		if (keywordMap.isEmpty())
+		if(keywordMap == null)
+			keywordMap = new Parser();
+		if (keywordMap.mMap.isEmpty())
 			keywordMap.parse();
 		this.query = query;
+	}
+
+	public String goToAdPage(String adTitle) {
+		for (SearchResult ad : savedAds) {
+			if (ad.getTitle().equals(adTitle)) {
+				selectedAd = ad;
+				break;
+			}
+		}
+		return "result";
 	}
 
 	public String getQuery() {
@@ -89,6 +107,22 @@ public class SearchBean {
 
 	public void setSelectedResult(SearchResult selectedResult) {
 		this.selectedResult = selectedResult;
+	}
+
+	public String getSelectedAdName() {
+		return selectedAdName;
+	}
+
+	public void setSelectedAdName(String selectedAdName) {
+		this.selectedAdName = selectedAdName;
+	}
+
+	public SearchResult getSelectedAd() {
+		return selectedAd;
+	}
+
+	public void setSelectedAd(SearchResult selectedAd) {
+		this.selectedAd = selectedAd;
 	}
 
 }
