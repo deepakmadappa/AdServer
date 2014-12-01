@@ -13,6 +13,7 @@ public class ServerImpl implements Server{
 	
 	@Override
 	public double getBid(KeywordDetails info) {
-		return Bidder.Instance().GetBid(info, mMode);
+		double bid = Bidder.Instance().GetBid(info, mMode);
+		return bid;
 	}
 }

@@ -57,13 +57,23 @@ public class Bidder {
 			return rand + 5.0;
 		case 1:
 			//returns last bid plus 1 cent
+			if(kd.mLastBidCost < 5 )
+				return 5.01;
+			if(kd.mLastBidCost >=15)
+				return 15;
 			return kd.mLastBidCost + 0.01;
 		case 2:
 			double lastCtr = kd.mLastBidClicks / kd.mLastBidImpressions * 100;
 			double lastRelevanceScore = ((kd.mLastBidRank / 20) + 1 ) * lastCtr;
 			double thisRelevanceScore = ((kd.mThisBidRank / 20) + 1 ) * lastCtr;
 			
-			return mRegressionModel.getData(lastRelevanceScore , kd.mLastBidCost, thisRelevanceScore);
+			double bid= mRegressionModel.getData(lastRelevanceScore , kd.mLastBidCost, thisRelevanceScore);
+			if(bid < 5)
+				return 5;
+			if (bid >=15) {
+				return 15;
+			}
+			return bid;
 			//returns ML regressed value;
 		default:
 			//no bid
