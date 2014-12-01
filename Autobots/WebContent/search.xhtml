@@ -16,8 +16,9 @@
 	<div style="vertical-align: top; height: 10%; text-align: center;">
 		<h:graphicImage library="default" name="images/logo.png" id="logo" />
 		<h:form id="searchForm">
-			<h:inputText value="#{searchBean.query}" />
-			<h:commandButton value="Search" />
+			<h:inputText value="#{searchBean.query}" id="query" />
+			<h:commandButton id="searchButton" action="search"
+				image="/resources/default/images/arrow.jpg" />
 		</h:form>
 	</div>
 
@@ -33,17 +34,15 @@
 		</div>
 	</div>
 
-	<div id="results" style="float: right; width: 84%">
-		<div id="right" style="float: right; width: 30%">
+	<div id="results" style="float: right; width: 84%;">
+		<div id="right"
+			style="right: 0; top: 130px; width: 25%; position: fixed;">
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.ads}">
 					<div class="ad">
 						<a
 							href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/ads_flat/#{i.id}">
-							#{i.title} - [bid: #{i.bid} , score: #{i.score}, 
-							calculated score: #{i.calculatedScore}]</a>
-							<br/>
-							<br/>
+							#{i.title}</a> <br /> <br />
 					</div>
 				</c:forEach>
 			</div>

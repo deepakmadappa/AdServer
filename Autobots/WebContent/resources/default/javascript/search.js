@@ -12,8 +12,9 @@ $(function() {
 			$(categoryDivs[categoryDivs.length - 1]).attr('checked', false);
 		categoryDivs = $('.filterOptions:checked');
 		var categories = [];
-		$(categoryDivs).each(function(){
-			categories.push($(this).val());
+		$(categoryDivs).each(function() {
+			if($(this).val() != "")
+				categories.push($(this).val());
 		});
 		displayCategories(categories);
 	});

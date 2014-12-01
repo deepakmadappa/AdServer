@@ -81,7 +81,7 @@ public class SearchBean {
 		List<String> res = new ArrayList<String>();
 		for (SearchResult search : searches) {
 			for (String category : search.getCategories()) {
-				if (!res.contains(category))
+				if (!res.contains(category) && !category.isEmpty())
 					res.add(category);
 			}
 		}

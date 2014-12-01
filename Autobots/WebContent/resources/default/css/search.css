@@ -19,8 +19,15 @@ body {
 	color: #00CCFF;
 }
 
-.filterOptions {
-	
+#searchForm\:query {
+	bottom: 11px;
+	position: relative;
+}
+
+#searchForm\:searchButton {
+	height: 32px;
+	left: 5px;
+	position: relative;
 }
 
 a {
@@ -29,6 +36,10 @@ a {
 
 .searchResult {
 	color: white;
+}
+
+.filterOptions {
+	
 }
 
 .ad {

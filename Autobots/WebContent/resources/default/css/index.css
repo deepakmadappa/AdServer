@@ -21,12 +21,7 @@ body {
 }
 
 #searchForm\:searchButton {
-	height: 30px;
-	width: 100px;
-	color: blue;
+	height: 45px;
+	left: 105px;
 	position: relative;
-	left: 88px;
-	-webkit-appearance: none;
-	-webkit-border-radius: 0px;
-	background-color: #A9AFC3;
 }
