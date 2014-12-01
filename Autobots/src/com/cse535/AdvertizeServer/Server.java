@@ -15,5 +15,5 @@ import javax.jws.soap.SOAPBinding.Style;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface Server extends java.rmi.Remote {
-	@WebMethod public int getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException;
+	@WebMethod public double getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException;
 }

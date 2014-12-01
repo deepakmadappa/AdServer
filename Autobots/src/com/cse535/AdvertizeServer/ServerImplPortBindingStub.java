@@ -27,8 +27,8 @@ public class ServerImplPortBindingStub extends org.apache.axis.client.Stub imple
         oper.setName("getBid");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://AdvertizeServer.cse535.com/", "keywordDetails"), com.cse535.AdvertizeServer.KeywordDetails.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
-        oper.setReturnClass(int.class);
+        oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "double"));
+        oper.setReturnClass(double.class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
@@ -138,7 +138,7 @@ public class ServerImplPortBindingStub extends org.apache.axis.client.Stub imple
         }
     }
 
-    public int getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException {
+    public double getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -162,9 +162,9 @@ public class ServerImplPortBindingStub extends org.apache.axis.client.Stub imple
         else {
             extractAttachments(_call);
             try {
-                return ((java.lang.Integer) _resp).intValue();
+                return ((java.lang.Double) _resp).doubleValue();
             } catch (java.lang.Exception _exception) {
-                return ((java.lang.Integer) org.apache.axis.utils.JavaUtils.convert(_resp, int.class)).intValue();
+                return ((java.lang.Double) org.apache.axis.utils.JavaUtils.convert(_resp, double.class)).doubleValue();
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

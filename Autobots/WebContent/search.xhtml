@@ -38,10 +38,9 @@
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.ads}">
 					<div class="ad">
-						<a href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/ads_flat/#{i.id}">
-							#{i.title} 
-						</a> 
-						<br />
+						<a
+							href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/ads_flat/#{i.id}">
+							#{i.title} </a> <br />
 					</div>
 				</c:forEach>
 			</div>
@@ -51,7 +50,8 @@
 			<div style="vertical-align: top;">
 				<c:forEach var="i" items="#{searchBean.result}">
 					<div class="searchResult">
-						<a href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/news_flat/Flat/#{i.id}">
+						<a
+							href="file:///C:/Users/Vinayak/Desktop/CourseWork/Information%20Retrieval/Project%203/news_flat/Flat/#{i.id}">
 							<h4>
 								<u>#{i.title}</u>
 							</h4>

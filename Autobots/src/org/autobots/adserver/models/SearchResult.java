@@ -13,7 +13,7 @@ public class SearchResult implements Comparable<SearchResult> {
 	private String content;
 	private String link;
 	private String keyword;
-	private int bid;
+	private double bid;
 	private List<String> categories;
 
 	public SearchResult() {
@@ -61,11 +61,11 @@ public class SearchResult implements Comparable<SearchResult> {
 		return categories;
 	}
 
-	public int getBid() {
+	public double getBid() {
 		return bid;
 	}
 
-	public void setBid(int bid) {
+	public void setBid(double bid) {
 		this.bid = bid;
 	}
 

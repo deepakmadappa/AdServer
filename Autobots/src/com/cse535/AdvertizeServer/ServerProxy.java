@@ -44,7 +44,7 @@ public class ServerProxy implements com.cse535.AdvertizeServer.Server {
     return server;
   }
   
-  public int getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException{
+  public double getBid(com.cse535.AdvertizeServer.KeywordDetails arg0) throws java.rmi.RemoteException{
     if (server == null)
       _initServerProxy();
     return server.getBid(arg0);
